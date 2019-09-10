@@ -57,6 +57,21 @@ It is recommended that you run step d each time you pull some updates from githu
 
 We provide a [Dockerfile](../docker/Dockerfile) to build an image.
 
+**Step.1 使用[阿里云镜像](https://www.aliyun.com/product/acr)进行加速**
+
+```shell
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": [<国内镜像地址>]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+**Step.2 构建镜像**
+
 ```shell
 # build an image with PyTorch 1.1, CUDA 10.0 and CUDNN 7.5
 docker build -t mmdetection docker/
